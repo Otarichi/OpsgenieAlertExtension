@@ -4,13 +4,13 @@ chrome.runtime.onInstalled.addListener(()=> {
             all_data_opsg: 
             {
                 tags: ["europebet", "europe-bet", "bge", "bog", "tbccreditcard", "bde"],
+                // tags: ['i', 'a', 'u', 'o'],
                 run: true,
             }
         }, () => {
         console.log('default tags and run status setted');
       });
 });
-
 
 var tabIDGlobal = undefined;
 
@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         chrome.notifications.create(request.payload.alert_i.toString(), {
             type: 'basic',
             iconUrl: './Images/Icons/notify_icon-512x512.png',
-            title: request.payload.alert_t,
+            title: request.payload.alert_p + '  ' + request.payload.alert_t,
             message: request.payload.alert_t,
             priority: 2
         });

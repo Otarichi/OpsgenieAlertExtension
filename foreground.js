@@ -30,7 +30,7 @@ function main_driver(){
                     } else {
                         lastID = alert_id;
                         console.log("checked", alert_id);
-                        if (alert_status === "open"){
+                        if (alert_status === "open" || alert_status === "ack'ed"){
                             for(let j=0; j<opsg_tags.length; j++) {
                                 if (alert_title_low.includes(opsg_tags[j])){
                                     console.log(opsg_tags[j], alert_id, alert_title);
