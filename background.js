@@ -1,8 +1,13 @@
 chrome.runtime.onInstalled.addListener(()=> {
-    chrome.storage.local.set({opsg_tags: [
-        "europebet", "europe-bet", "bge", "bog", "tbccreditcard", "bde"
-    ]}, ()=> {
-        console.log('default tags setted');
+    chrome.storage.local.set(
+        {
+            all_data_opsg: 
+            {
+                tags: ["europebet", "europe-bet", "bge", "bog", "tbccreditcard", "bde"],
+                run: true,
+            }
+        }, () => {
+        console.log('default tags and run status setted');
       });
 });
 
@@ -25,10 +30,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if(request.message === "notify"){
-        console.log("sadsa");
         chrome.notifications.create(request.payload.alert_i.toString(), {
             type: 'basic',
-            iconUrl: 'back_row.png',
+            iconUrl: './Images/Icons/notify_icon-512x512.png',
             title: request.payload.alert_t,
             message: request.payload.alert_t,
             priority: 2
@@ -37,8 +41,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             status: "success"
         });
     }
-    if(request.message == "get_tags"){
-        chrome.storage.local.get(['opsg_tags'], (result) => {
+    if(request.message == "get_tags_runStatus"){
+        chrome.storage.local.get(['all_data_opsg'], (result) => {
             if (chrome.runtime.lastError) {
                 sendResponse({
                     status: "fail"
@@ -48,7 +52,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             sendResponse({
                 status: "success",
-                opsg_tags: result.opsg_tags
+                opsg_tags: result.all_data_opsg.tags,
+                runStatus: result.all_data_opsg.run
             });
         });
         return true;
