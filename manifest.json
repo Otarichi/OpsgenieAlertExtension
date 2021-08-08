@@ -30,9 +30,11 @@
         "storage",
         "scripting",
         "notifications",
-        "contextMenus"
+        "contextMenus",
+        "webRequest",
+        "declarativeNetRequest"
     ],
     "host_permissions": [
-        "https://betssongroup.app.eu.opsgenie.com/alert/list/*"
+        "https://betssongroup.app.eu.opsgenie.com/*"
     ]
 }

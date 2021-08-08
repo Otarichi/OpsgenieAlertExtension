@@ -1,14 +1,18 @@
 chrome.runtime.onInstalled.addListener(()=> {
     chrome.storage.local.set(
         {
-            all_data_opsg: 
-            {
-                tags: ["europebet", "europe-bet", "bge", "bog", "tbccreditcard", "bde"],
-                // tags: ['i', 'a', 'u', 'o'],
-                run: true,
-            }
+            opsg_tags: ["europebet", "europe-bet", "bge", "bog", "tbccreditcard"],
+            // opsg_tags: ['i', 'a', 'u', 'o'],
+            
         }, () => {
-        console.log('default tags and run status setted');
+        console.log('default tags setted');
+      });
+
+      chrome.storage.local.set(
+        {
+            runStatus: true,
+        }, () => {
+        console.log('run status setted');
       });
 });
 
@@ -34,26 +38,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             type: 'basic',
             iconUrl: './Images/Icons/notify_icon-512x512.png',
             title: request.payload.alert_p + '  ' + request.payload.alert_t,
-            message: request.payload.alert_t,
+            message: request.payload.alert_d,
             priority: 2
         });
         sendResponse({
             status: "success"
         });
     }
-    if(request.message == "get_tags_runStatus"){
-        chrome.storage.local.get(['all_data_opsg'], (result) => {
+    if(request.message == "get_tags_runStatus_token"){
+        chrome.storage.local.get(['runStatus', 'opsg_tags'], (result) => {
             if (chrome.runtime.lastError) {
                 sendResponse({
                     status: "fail"
                 });
                 return;
             }
-
             sendResponse({
                 status: "success",
-                opsg_tags: result.all_data_opsg.tags,
-                runStatus: result.all_data_opsg.run
+                opsg_tags: result.opsg_tags,
+                runStatus: result.runStatus
             });
         });
         return true;
