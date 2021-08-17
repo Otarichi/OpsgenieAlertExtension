@@ -35,6 +35,7 @@
         "declarativeNetRequest"
     ],
     "host_permissions": [
-        "https://betssongroup.app.eu.opsgenie.com/*"
+        "https://betssongroup.app.eu.opsgenie.com/*",
+        "https://hooks.slack.com/services/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*"
     ]
 }

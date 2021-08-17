@@ -34,6 +34,17 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if(request.message === "notify"){
+
+        const sdata = { 'text': request.payload.alert_p + '  ' + request.payload.alert_d, };
+        fetch('https://hooks.slack.com/services/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', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(sdata)
+        });
+
         chrome.notifications.create(request.payload.alert_i.toString(), {
             type: 'basic',
             iconUrl: './Images/Icons/notify_icon-512x512.png',
